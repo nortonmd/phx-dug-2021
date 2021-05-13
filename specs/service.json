@@ -1,0 +1,253 @@
+{
+  "swagger": "2.0",
+  "basePath": "/",
+  "info": {
+    "version": "1.0",
+    "title": "External Service for demo bank",
+    "description": "### External Service for demo bank",
+    "x-vcap-service-name": "DemoBankRestServices"
+  },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "DemoBankRestServices"
+    }
+  ],
+  "paths": {
+    "/accounts/{accountName}": {
+      "get": {
+        "operationId": "getAccount",
+        "summary": "Retrieves an account",
+        "description": "Retrieves the account with specific name",
+        "consumes": [
+          "text/plain"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "accountName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Name of the account"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response when system finds an account with given name",
+            "schema": {
+              "$ref": "#/definitions/accountDetails"
+            }
+          },
+          "400": {
+            "description": "Error response if the account name parameter is less than minimum characters",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          },
+          "404": {
+            "description": "Error response if the account is not supported by service or account is not found",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteAccount",
+        "summary": "Deletes an account",
+        "description": "Deletes the account with specific name",
+        "consumes": [
+          "text/plain"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "accountName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Name of the account"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The response when system finds an account with given name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Error response if the account name parameter is less than minimum characters",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          },
+          "404": {
+            "description": "Error response if the account is not supported by service or account is not found",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "addAccount",
+        "summary": "Add an account",
+        "description": "Add an account to the database",
+        "consumes": [
+          "text/plain"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "accountName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Name of the account"
+          },
+          {
+            "name": "accountType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The type of account"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The response when the account does not already exist and we can create one",
+            "schema": {
+              "$ref": "#/definitions/accountDetails"
+            }
+          },
+          "409": {
+            "description": "The response when the account already exists and we cannot create one",
+            "schema": {
+              "$ref": "#/definitions/accountDetails"
+            }
+          },
+          "400": {
+            "description": "Error response if the account name parameter is less than minimum characters",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          },
+          "404": {
+            "description": "Error response if the account is not supported by service or account is not found",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateAccount",
+        "summary": "Updates an account",
+        "description": "Updates the account with specified name",
+        "consumes": [
+          "text/plain"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "accountName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Name of the account"
+          },
+          {
+            "name": "accountType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The type of account"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response when system finds an account with given name",
+            "schema": {
+              "$ref": "#/definitions/accountDetails"
+            }
+          },
+          "400": {
+            "description": "Error response if the account name parameter is less than minimum characters",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          },
+          "404": {
+            "description": "Error response if the account is not supported by service or account is not found",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "accountDetails": {
+      "required": [
+        "id",
+        "name",
+        "type",
+        "availableBal"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "id"
+        },
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "availableBal": {
+          "type": "string",
+          "description": "availableBal"
+        }
+      }
+    },
+    "errorModel": {
+      "required": [
+        "errorCode",
+        "errorMessage"
+      ],
+      "properties": {
+        "errorCode": {
+          "type": "string",
+          "description": "A service-specific error code."
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "A service-specific error code."
+        }
+      }
+    }
+  }
+}
