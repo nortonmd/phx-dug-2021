@@ -12,6 +12,7 @@ stateZipMap.put( 'AZ', azPostalCodes );
 
 // Michigan
 List<String> miPostalCodes = new List<String>();
+miPostalCodes.add( '48000' );
 miPostalCodes.add( '48066' );
 miPostalCodes.add( '49307' );
 stateZipMap.put( 'MI', miPostalCodes );

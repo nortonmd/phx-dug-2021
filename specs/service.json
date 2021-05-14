@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "basePath": "/",
   "info": {
-    "version": "1.0",
+    "version": "1.1",
     "title": "External Service for demo bank",
     "description": "### External Service for demo bank",
     "x-vcap-service-name": "DemoBankRestServices"
@@ -212,7 +212,8 @@
         "id",
         "name",
         "type",
-        "availableBal"
+        "availableBal",
+        "openDate"
       ],
       "properties": {
         "id": {
